@@ -42,7 +42,8 @@ const run = async () => {
     }, {
         title: 'FORUM FORUM FORUM',
         description: 'LOREM LOREM LOREM',
-        image: 'tugol.jpg'
+        image: 'tugol.jpg',
+        user: tugol
     });
 
     await Comment.create({
