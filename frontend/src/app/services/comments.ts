@@ -7,7 +7,7 @@ import { Comment, CommentData } from '../models/comment.model';
 @Injectable({
   providedIn: 'root'
 })
-export class PostsService {
+export class CommentsService {
 
   constructor(private http: HttpClient) { }
 

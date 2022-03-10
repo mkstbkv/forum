@@ -10,7 +10,7 @@ export type CommentsState = {
   createError: null | string,
 };
 export type PostsState = {
-  comments: Post[],
+  posts: Post[],
   fetchLoading: boolean,
   fetchError: null | string,
   createLoading: boolean,

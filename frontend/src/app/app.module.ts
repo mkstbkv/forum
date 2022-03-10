@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { LayoutComponent } from './ui/layout/layout.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -27,6 +27,23 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { localStorageSync } from 'ngrx-store-localstorage';
+import { commentsReducer } from './store/comments.reducer';
+import { postsReducer } from './store/posts.reducer';
+import { usersReducer } from './store/users.reducer';
+import { CommentsEffects } from './store/comments.effects';
+import { PostsEffects } from './store/posts.effects';
+import { UsersEffects } from './store/users.effects';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+const localStorageSyncReducer = (reducer: ActionReducer<any>) => {
+  return localStorageSync({
+    keys: [{users: ['user']}],
+    rehydrate: true
+  })(reducer);
+}
+
+const metaReducers: MetaReducer[] = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [
@@ -47,8 +64,13 @@ import { MatInputModule } from '@angular/material/input';
     FlexLayoutModule,
     HttpClientModule,
     FormsModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({
+      comments: commentsReducer,
+      posts: postsReducer,
+      users: usersReducer
+    }, {metaReducers}),
+    EffectsModule.forRoot([CommentsEffects, PostsEffects, UsersEffects]),
+    MatSnackBarModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,

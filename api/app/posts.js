@@ -40,6 +40,7 @@ router.post('/', auth, upload.single('image'), async (req, res, next) => {
             title: req.body.title,
             description: null,
             image: null,
+            dateTime: new Date().toISOString(),
             user: req.user._id
         };
 
