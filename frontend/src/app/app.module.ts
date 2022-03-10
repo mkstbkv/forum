@@ -23,6 +23,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ImagePipe } from './pipes/image.pipe';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -36,22 +37,23 @@ import { ImagePipe } from './pipes/image.pipe';
     EditPostComponent,
     ImagePipe
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FlexLayoutModule,
-    HttpClientModule,
-    FormsModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FlexLayoutModule,
+        HttpClientModule,
+        FormsModule,
+        StoreModule.forRoot({}, {}),
+        EffectsModule.forRoot([]),
+        LayoutModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatMenuModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

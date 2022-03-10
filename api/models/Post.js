@@ -27,6 +27,7 @@ const PostSchema = new mongoose.Schema({
             message: 'Fill in either a description or upload an image'
         }
     },
+    dateTime: Date,
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
