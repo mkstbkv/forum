@@ -64,8 +64,9 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
       text: this.form.form.value.text,
       post: this.route.snapshot.params['id'],
     };
-    const token = this.token
+    const token = this.token;
     this.store.dispatch(createCommentRequest({commentData, token}));
+    this.store.dispatch(fetchCommentsRequest({id: this.route.snapshot.params['id']}));
   }
 
   ngOnDestroy() {

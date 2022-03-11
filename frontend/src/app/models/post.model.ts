@@ -6,7 +6,7 @@ export class Post {
     public title: string,
     public description: string,
     public image: string,
-    public dateTime: Date,
+    public dateTime: string,
     public user: User,
   ) {}
 }
@@ -16,6 +16,6 @@ export interface PostData {
   title: string;
   description: File | null;
   image: File | null;
-  dateTime: Date;
+  dateTime: string;
   user: User;
 }
