@@ -15,7 +15,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { FileInputComponent } from './ui/file-input/file-input.component';
 import { CenteredCardComponent } from './ui/centered-card/centered-card.component';
-import { PostsComponent } from './pages/posts/posts.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { EditPostComponent } from './pages/edit-post/edit-post.component';
@@ -35,6 +34,10 @@ import { CommentsEffects } from './store/comments.effects';
 import { PostsEffects } from './store/posts.effects';
 import { UsersEffects } from './store/users.effects';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PostsComponent } from './pages/posts/posts.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ValidateFormDirective } from './validate-form.directive';
+import { PostDetailsComponent } from './pages/post-details/post-details.component';
 
 const localStorageSyncReducer = (reducer: ActionReducer<any>) => {
   return localStorageSync({
@@ -55,7 +58,9 @@ const metaReducers: MetaReducer[] = [localStorageSyncReducer];
     LoginComponent,
     RegisterComponent,
     EditPostComponent,
-    ImagePipe
+    ImagePipe,
+    ValidateFormDirective,
+    PostDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +85,8 @@ const metaReducers: MetaReducer[] = [localStorageSyncReducer];
     MatMenuModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,41 @@
+<div fxLayout="row" fxLayoutAlign="space-between flex-start">
+  <h1>Posts</h1>
+</div>
+
+<div class="error" *ngIf="error | async">
+  {{ error | async }}
+</div>
+
+<mat-progress-spinner
+  *ngIf="(loading | async) else postsArea"
+  mode="indeterminate"
+></mat-progress-spinner>
+
+<ng-template #postsArea>
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div
+      fxFlex.xs="100%"
+      fxFlex.sm="50%"
+      fxFlex.lt-lg="33%"
+      fxFlex="25%"
+      *ngFor="let post of posts | async"
+    >
+      <mat-card>
+        <mat-card-title>{{ post.user.displayName }}</mat-card-title>
+        <mat-card-subtitle>{{ post.dateTime }}</mat-card-subtitle>
+        <img
+          mat-card-lg-image
+          [src]="post.image | image"
+          [alt]="'Photo of ' + post.title"
+        />
+        <mat-card-actions>
+          <a
+            [routerLink]="['/posts/', post._id]"
+            mat-raised-button
+            color="warn"
+          >VIEW</a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>

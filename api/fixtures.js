@@ -34,18 +34,18 @@ const run = async () => {
     const [johnPost, janePost, tugolPost] = await Post.create({
         title: 'First post',
         description: 'JOHN JOHN JOHN JOHN JOHN',
-        datetime: '2022-01-10T08:44:57.849Z',
+        dateTime: '2022-01-10T08:44:57.849Z',
         user: john
     }, {
         title: 'Seagate BarraCuda 4TB',
         image: 'jane.jpg',
-        datetime: '2022-02-10T21:30:57.849Z',
+        dateTime: '2022-02-10T21:30:57.849Z',
         user: jane
     }, {
         title: 'FORUM FORUM FORUM',
         description: 'LOREM LOREM LOREM',
         image: 'tugol.jpg',
-        datetime: '2022-03-10T17:44:57.849Z',
+        dateTime: '2022-03-10T17:44:57.849Z',
         user: tugol
     });
 

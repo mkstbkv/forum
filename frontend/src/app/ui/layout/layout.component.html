@@ -25,8 +25,8 @@
       <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <h2>Hello, {{ (user | async)?.displayName }}</h2>
-      <button mat-menu-item>Add new post</button>
+      <strong>{{ (user | async)?.displayName }}</strong>
+      <button mat-menu-item routerLink="/posts/new">Add new post</button>
       <button mat-menu-item (click)="logout()">Logout</button>
     </mat-menu>
   </nav>

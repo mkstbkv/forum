@@ -26,7 +26,7 @@ export class PostsEffects {
 
   createProduct = createEffect(() => this.actions.pipe(
     ofType(createPostRequest),
-    mergeMap(({postsData}) => this.postsService.createPost(postsData).pipe(
+    mergeMap(({postData}) => this.postsService.createPost(postData).pipe(
       map(() => createPostSuccess()),
       tap(() => this.router.navigate(['/'])),
       catchError(() => of(createPostFailure({error: 'Wrong data'})))

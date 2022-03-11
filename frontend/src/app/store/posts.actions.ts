@@ -13,7 +13,7 @@ export const fetchPostsFailure = createAction(
 
 export const createPostRequest = createAction(
   '[Posts] Create Request',
-  props<{postsData: PostData}>()
+  props<{postData: PostData}>()
 );
 export const createPostSuccess = createAction(
   '[Posts] Create Success'
