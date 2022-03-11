@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Post, PostData } from '../models/post.model';
@@ -28,7 +28,15 @@ export class PostsService {
     );
   }
 
-  createPost(postData: PostData) {
+  getPost(id: string) {
+    return this.http.get<Post>(environment.apiUrl + '/posts/' + id).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+
+  createPost(postData: PostData, token: string) {
     const formData = new FormData();
 
     Object.keys(postData).forEach(key => {
@@ -37,6 +45,8 @@ export class PostsService {
       }
     });
 
-    return this.http.post(environment.apiUrl + '/posts', formData);
+    return this.http.post(environment.apiUrl + '/posts', formData, {
+      headers: new HttpHeaders({'Authorization': token}),
+    });
   }
 }

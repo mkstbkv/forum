@@ -19,7 +19,7 @@ export class UsersService {
 
   logout(token: string) {
     return this.http.delete(env.apiUrl + '/users/sessions', {
-      headers: new HttpHeaders({'Authorization': token})
+      headers: new HttpHeaders({'Authorization': token}),
     });
   }
 }

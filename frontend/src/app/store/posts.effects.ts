@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import {
   createPostFailure,
   createPostRequest,
-  createPostSuccess,
+  createPostSuccess, fetchPostFailure, fetchPostRequest,
   fetchPostsFailure,
   fetchPostsRequest,
-  fetchPostsSuccess
+  fetchPostsSuccess, fetchPostSuccess
 } from './posts.actions';
 import { PostsService } from '../services/posts.service';
 
@@ -24,9 +24,19 @@ export class PostsEffects {
     ))
   ));
 
-  createProduct = createEffect(() => this.actions.pipe(
+  fetchPost = createEffect(() => this.actions.pipe(
+    ofType(fetchPostRequest),
+    mergeMap( ({id}) => this.postsService.getPost(id).pipe(
+      map(post => fetchPostSuccess({post})),
+      catchError(() => of(fetchPostFailure({
+        error: 'Something went wrong'
+      })))
+    ))
+  ));
+
+  createPost = createEffect(() => this.actions.pipe(
     ofType(createPostRequest),
-    mergeMap(({postData}) => this.postsService.createPost(postData).pipe(
+    mergeMap(({postData, token}) => this.postsService.createPost(postData, token).pipe(
       map(() => createPostSuccess()),
       tap(() => this.router.navigate(['/'])),
       catchError(() => of(createPostFailure({error: 'Wrong data'})))

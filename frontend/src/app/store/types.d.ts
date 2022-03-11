@@ -11,6 +11,7 @@ export type CommentsState = {
 };
 export type PostsState = {
   posts: Post[],
+  post: null | Post,
   fetchLoading: boolean,
   fetchError: null | string,
   createLoading: boolean,

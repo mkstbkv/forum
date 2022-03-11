@@ -1,7 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 import { Comment, CommentData } from '../models/comment.model';
 
-export const fetchCommentsRequest = createAction('[Comments] Fetch Request');
+export const fetchCommentsRequest = createAction(
+  '[Comments] Fetch Request',
+  props<{id: string}>()
+
+);
 export const fetchCommentsSuccess = createAction(
   '[Comments] Fetch Success',
   props<{comments: Comment[]}>()
@@ -13,10 +17,10 @@ export const fetchCommentsFailure = createAction(
 
 export const createCommentRequest = createAction(
   '[Comments] Create Request',
-  props<{commentData: CommentData}>()
+  props<{commentData: CommentData, token: string}>()
 );
 export const createCommentSuccess = createAction(
-  '[Comments] Create Success'
+  '[Comments] Create Success',
 );
 export const createCommentFailure = createAction(
   '[Comments] Create Failure',

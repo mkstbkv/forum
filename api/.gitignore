@@ -2,3 +2,5 @@
 node_modules
 public/uploads/*
 !public/uploads/.gitkeep
+!public/uploads/tugol.jpg
+!public/uploads/jane.jpg

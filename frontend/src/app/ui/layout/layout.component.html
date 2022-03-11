@@ -20,13 +20,13 @@
 </mat-sidenav-container>
 
 <ng-template #userMenu>
-  <nav>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
+  <nav fxLayout="row">
+    <button mat-raised-button color="primary" routerLink="/posts/new">Add new post</button>
+      <button mat-icon-button  [matMenuTriggerFor]="menu">
       <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <strong>{{ (user | async)?.displayName }}</strong>
-      <button mat-menu-item routerLink="/posts/new">Add new post</button>
       <button mat-menu-item (click)="logout()">Logout</button>
     </mat-menu>
   </nav>

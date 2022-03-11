@@ -1,0 +1,60 @@
+<div fxLayout="row wrap" fxLayoutAlign="space-between">
+  <mat-card style="max-width: 400px" *ngIf="postOne">
+    <mat-card-header >
+      <mat-card-title>{{ postOne.title }}</mat-card-title>
+      <mat-card-subtitle>{{ postOne.user.displayName }}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="postOne.image | image" [alt]="'Photo of ' + postOne.title">
+    <mat-card-content>
+      <p>
+        {{postOne.description}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="error" *ngIf="error | async">
+    {{ error | async }}
+  </div>
+
+  <mat-progress-spinner
+    *ngIf="(loading | async) else commentsArea"
+    mode="indeterminate"
+  ></mat-progress-spinner>
+
+  <ng-template #commentsArea>
+    <div style="min-width: 400px; margin-bottom: 50px">
+      <h2>COMMENTS</h2>
+      <div *ngFor="let comment of comments | async" style="margin-bottom: 15px">
+        <mat-card >
+          <mat-card-title>{{ comment.text }}</mat-card-title>
+          <mat-card-subtitle>{{ comment.user.displayName }}</mat-card-subtitle>
+        </mat-card>
+      </div>
+      <div *ngIf="!(user | async) else userMenu">
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #userMenu>
+  <mat-card >
+    <h2>Add comment</h2>
+
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()" #f="ngForm" fxLayout="column" >
+        <mat-form-field appearance="outline">
+          <mat-label>Text</mat-label>
+          <input name="text" required matInput ngModel/>
+        </mat-form-field>
+        <div>
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            [disabled]="f.invalid || (loading | async)"
+          >Add</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

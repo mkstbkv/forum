@@ -3,14 +3,16 @@ import { PostsState } from './types';
 import {
   createPostFailure,
   createPostRequest,
-  createPostSuccess,
+  createPostSuccess, fetchPostFailure, fetchPostRequest,
   fetchPostsFailure,
   fetchPostsRequest,
-  fetchPostsSuccess
+  fetchPostsSuccess, fetchPostSuccess
 } from './posts.actions';
+
 
 const initialState: PostsState = {
   posts: [],
+  post: null,
   fetchLoading: false,
   fetchError: null,
   createLoading: false,
@@ -26,6 +28,17 @@ export const postsReducer = createReducer(
     posts
   })),
   on(fetchPostsFailure, (state, {error}) => ({
+    ...state,
+    fetchLoading: false,
+    fetchError: error
+  })),
+  on(fetchPostRequest, state => ({...state, fetchLoading: true})),
+  on(fetchPostSuccess, (state, {post}) => ({
+    ...state,
+    fetchLoading: false,
+    post
+  })),
+  on(fetchPostFailure, (state, {error}) => ({
     ...state,
     fetchLoading: false,
     fetchError: error

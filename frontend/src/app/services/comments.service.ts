@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Comment, CommentData } from '../models/comment.model';
@@ -11,8 +11,8 @@ export class CommentsService {
 
   constructor(private http: HttpClient) { }
 
-  getComments() {
-    return this.http.get<Comment[]>(environment.apiUrl + '/comments').pipe(
+  getComments(id: string) {
+    return this.http.get<Comment[]>(environment.apiUrl + '/comments?post=' + id).pipe(
       map(response => {
         return response.map(commentData => {
           return new Comment(
@@ -26,15 +26,9 @@ export class CommentsService {
     );
   }
 
-  createComment(commentData: CommentData) {
-    const formData = new FormData();
-
-    Object.keys(commentData).forEach(key => {
-      if (commentData[key] !== null) {
-        formData.append(key, commentData[key]);
-      }
+  createComment(commentData: CommentData, token: string) {
+    return this.http.post(environment.apiUrl + '/comments', commentData, {
+      headers: new HttpHeaders({'Authorization': token}),
     });
-
-    return this.http.post(environment.apiUrl + '/comments', formData);
   }
 }

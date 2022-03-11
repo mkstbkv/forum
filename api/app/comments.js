@@ -7,7 +7,11 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
     try {
-        const comments = await Comment.find().sort({_id: -1});
+        const query = {}
+        if (req.query.post) {
+            query.post = req.query.post
+        }
+        const comments = await Comment.find(query).sort({_id: -1}).populate('user', 'displayName');
 
         return res.send(comments);
     } catch (e) {

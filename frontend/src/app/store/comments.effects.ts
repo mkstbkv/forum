@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { mergeMap, map, catchError, of, tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { mergeMap, map, catchError, of } from 'rxjs';
 import {
   createCommentFailure,
-  createCommentRequest,
+  createCommentRequest, createCommentSuccess,
   fetchCommentsFailure,
   fetchCommentsRequest,
   fetchCommentsSuccess
 } from './comments.actions';
-import { CommentsService } from '../services/comments';
-import { createPostSuccess } from './posts.actions';
+import { CommentsService } from '../services/comments.service';
 
 
 @Injectable()
@@ -18,7 +16,7 @@ import { createPostSuccess } from './posts.actions';
 export class CommentsEffects {
   fetchComments = createEffect(() => this.actions.pipe(
     ofType(fetchCommentsRequest),
-    mergeMap(() => this.commentsService.getComments().pipe(
+    mergeMap(({id}) => this.commentsService.getComments(id).pipe(
       map(comments => fetchCommentsSuccess({comments})),
       catchError(() => of(fetchCommentsFailure({
         error: 'Something went wrong'
@@ -28,9 +26,8 @@ export class CommentsEffects {
 
   createComment = createEffect(() => this.actions.pipe(
     ofType(createCommentRequest),
-    mergeMap(({commentData}) => this.commentsService.createComment(commentData).pipe(
-      map(() => createPostSuccess()),
-      tap(() => this.router.navigate(['/'])),
+    mergeMap(({commentData, token}) => this.commentsService.createComment(commentData, token).pipe(
+      map(() => createCommentSuccess()),
       catchError(() => of(createCommentFailure({error: 'Wrong data'})))
     ))
   ));
@@ -38,6 +35,5 @@ export class CommentsEffects {
   constructor(
     private actions: Actions,
     private commentsService: CommentsService,
-    private router: Router
   ) {}
 }

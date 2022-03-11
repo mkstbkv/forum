@@ -11,8 +11,6 @@ export class Comment {
 }
 
 export interface CommentData {
-  [key: string]: any;
   text: string;
-  post: Post,
-  user: User
+  post: string,
 }

@@ -37,7 +37,7 @@ const run = async () => {
         dateTime: '2022-01-10T08:44:57.849Z',
         user: john
     }, {
-        title: 'Seagate BarraCuda 4TB',
+        title: 'FINE',
         image: 'jane.jpg',
         dateTime: '2022-02-10T21:30:57.849Z',
         user: jane
