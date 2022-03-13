@@ -14,7 +14,7 @@ export class Post {
 export interface PostData {
   [key: string]: any;
   title: string;
-  description: File | null;
+  description: string | null;
   image: File | null;
   dateTime: string;
   user: User;

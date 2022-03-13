@@ -27,7 +27,8 @@ export class CommentsEffects {
 
   createComment = createEffect(() => this.actions.pipe(
     ofType(createCommentRequest),
-    mergeMap(({commentData, token}) => this.commentsService.createComment(commentData, token).pipe(
+    mergeMap(({commentData, token}) => this.commentsService.createComment(commentData, token)
+      .pipe(
       map(() => createCommentSuccess()),
       tap(() => this.router.navigate(['/posts/' + commentData.post])),
 
